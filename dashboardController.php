@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST["register"])){
+    if(isset($_POST["edit"])){
         require_once "logic/user.php";
         require_once "logic/userDAO.php";
         require_once "logic/UserException.php";
@@ -16,13 +16,14 @@
         $user = new User($username, $name, $lastname1, $lastname2, $email, $birthday, $phone, $password);
         $userDAO = new UserDAO();
         try{
-            $userDAO->add($user);
             session_start();
-            $_SESSION["username"] = $username;
-            header("Location: dashboard.php");
+            $username = $_SESSION["username"];
+            $userDAO->edit($username, $user);
+            $_SESSION["username"] = $user->getUsername();
+            header("Location: dashboard.php?success");
             exit();
         } catch(UserException $e){
-            header("Location: register.php?error=" . $e->getType());
+            header("Location: dashboard.php?error=" . $e->getType());
             exit();
         } catch(Exception $e){
             header("Location: unhandled-error.php?error=" . $e->getMessage());

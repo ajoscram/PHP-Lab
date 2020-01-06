@@ -1,3 +1,7 @@
+<?PHP
+    if(session_status() == PHP_SESSION_ACTIVE)
+        session_destroy();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +11,6 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,500,700&display=swap">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,21 +20,34 @@
                     <h3>Iniciar Sesión</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <?php
+                        require_once 'logic/userException.php';
+
+                        if(isset($_GET["error"])){
+                            $error = $_GET["error"];
+                            if ($error == UserException::AUTHENTICATION_FAILED){
+                                echo('<div class="alert alert-danger" role="alert"> Nombre de usuario o contraseña incorrectos.</div>');
+                            }
+                            else{
+                                echo('<div class="alert alert-danger" role="alert"> UNHANDLED ERROR: '. $error .'</div>');
+                            }
+                        }
+                    ?>
+                    <form action="indexController.php" method="post">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Usuario">
+                            <input name="username" type="text" class="form-control" placeholder="Usuario" required>
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" placeholder="Contraseña">
+                            <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Ingresar" class="btn float-right login_btn">
+                            <input name="sign_in" type="submit" value="Ingresar" class="btn float-right login_btn">
                         </div>
                     </form>
                 </div>
@@ -47,5 +62,7 @@
             </div>
         </div>
     </div>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>
