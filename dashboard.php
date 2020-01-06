@@ -30,7 +30,7 @@
                         require_once 'logic/userException.php';
 
                         if(isset($_GET["success"])){
-                            echo('<div class="alert alert-success" role="alert"> Informacion de cuenta modificada exitosamente.</div>');
+                            echo('<div class="alert alert-success" role="alert"> Información de cuenta modificada exitosamente.</div>');
                         }
                         elseif(isset($_GET["error"])){
                             $error = $_GET["error"];
