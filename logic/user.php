@@ -1,7 +1,6 @@
 <?php
     class User{
         
-        private $id;
         private $username;
         private $name;
         private $lastname1;
@@ -11,8 +10,7 @@
         private $phone;
         private $password;
 
-        function __construct($id, $username, $name, $lastname1, $lastname2, $email, $birthday, $phone, $password){
-            $this->id = $id;
+        function __construct($username, $name, $lastname1, $lastname2, $email, $birthday, $phone, $password){
             $this->username = $username;
             $this->name = $name;
             $this->lastname1 = $lastname1;
@@ -23,10 +21,6 @@
             $this->password  =$password;
         }
         
-        public function getId(){
-            return $this->id;
-        }
-
         public function getUsername(){
             return $this->username;
         }
@@ -73,6 +67,17 @@
 
         public function getBirthday(){
             return $this->birthday;
+        }
+
+        public function __toString(){
+            return  "Username: " . $this->username . "<br>" . 
+                    "Name: " . $this->name . "<br>" .
+                    "Lastname1: " . $this->lastname1 . "<br>" .
+                    "Lastname2: " . $this->lastname2 . "<br>" .
+                    "Email: " . $this->email . "<br>" .
+                    "Birthday: " . $this->birthday . "<br>" .
+                    "Phone: " . $this->phone . "<br>" .
+                    "Password: " . $this->password . "<br>";
         }
     }
 ?>

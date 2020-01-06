@@ -18,7 +18,7 @@
                     <h3>Recuperar Contraseña</h3>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="registerController.php" method="post">
                         <div class="info-message">
                             <p>Se enviará un correo electrónico a su dirección con una nueva contraseña autogenerada. Se recomienda cambiarla de inmediato cuando ingrese con su cuenta.</p>
                         </div>
