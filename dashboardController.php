@@ -29,7 +29,10 @@
             header("Location: unhandled-error.php?error=" . $e->getMessage());
             exit();
         }
-    } else{
+    }else{
+        session_start();
+        if($_SESSION["username"])
+            unset($_SESSION["username"]);
         header("Location: index.php");
         exit();
     }

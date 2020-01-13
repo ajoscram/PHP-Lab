@@ -1,11 +1,22 @@
 <?php
     include 'logic/userDAO.php';
+    try{
+        session_start();
+        $username = $_SESSION["username"];
 
-    session_start();
-    $username = $_SESSION["username"];
-
-    $userDAO = new UserDAO();
-    $user = $userDAO->get($username);
+        $userDAO = new UserDAO();
+        $user = $userDAO->get($username);
+    } catch(UserException $e){
+        if($e->getType() == UserException::USER_NOT_FOUNT){
+            header("Location: index.php");
+            exit();
+        }
+        else
+            throw $e;
+    } catch(Exception $e){
+        header("Location: unhandled-error.php?error=" . $e->getMessage());
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +109,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        <a href="index.php">Cerrar Sesión</a>
+                        <a href="dashboardController.php">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>

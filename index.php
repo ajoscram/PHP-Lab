@@ -1,7 +1,3 @@
-<?PHP
-    if(session_status() == PHP_SESSION_ACTIVE)
-        session_destroy();
-?>
 <!DOCTYPE html>
 <html>
 <head>
